@@ -1,14 +1,24 @@
 import { useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import './styles.css';
+import api from './service/api';
 
 function App() {
 
-  function aoClicar(){
-    alert('O que você, você mesmo digitou: ' + input)
-  }
-  
   const [input, setInput] = useState('');
+
+  async function aoClicar(){
+
+    if (input === ''){
+      alert("Preencha um CEP!")
+      return;
+    } try {
+      const response = await api.get(`${input}/json`);
+      console.log(response);
+    } catch {
+      alert("Digite um CEP valído, Cabaço <3")
+    }
+  }
 
   return (
     <div className="container">
